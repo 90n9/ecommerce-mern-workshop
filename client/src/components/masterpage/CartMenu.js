@@ -8,13 +8,13 @@ const CartMenu = ({ carts, cartDelete }) => {
   return (
     <div className="btn-group">
       <div className="p-2 text-light">
-        ฿ {totalPrice}
+        ฿ {totalPrice.toLocaleString()}
       </div>
       <button type="button" className="btn btn-light rounded-circle" data-bs-toggle="dropdown" aria-expanded="false">
         <div className="text-primary py-1">
           <i className="fas fa-shopping-basket"></i>
         </div>
-        <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger">{totalQty}</span>
+        <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger">{totalQty.toLocaleString()}</span>
       </button>
       <div className="dropdown-menu dropdown-menu-end mt-1 p-4 text-muted">
         <div style={{ minWidth: 240 }}>
@@ -24,7 +24,7 @@ const CartMenu = ({ carts, cartDelete }) => {
           <div className="d-flex justify-content-between">
             <span>Total Price</span>
             <span className="text-danger">
-              ฿{totalPrice}
+              ฿{totalPrice.toLocaleString()}
             </span>
           </div>
         </div>
@@ -51,10 +51,10 @@ const CartItem = ({ cartItem, cartDelete, ...props }) => {
       <div className="pb-3 mb-0 small lh-sm border-bottom w-100">
         <div className="d-flex justify-content-between">
           <strong className="text-gray-dark">{product.title}</strong>
-          <span>x {qty}</span>
+          <span>x {qty.toLocaleString()}</span>
         </div>
         <div className="d-flex justify-content-between">
-          <span className="d-block"><span className="text-danger">฿{product.price}</span>/piece</span>
+          <span className="d-block"><span className="text-danger">฿{product.price.toLocaleString()}</span>/piece</span>
           <button className="btn btn-danger btn-sm rounded-circle" type="button" onClick={handleCartDelete}>
             <i className="fas fa-trash"></i>
           </button>

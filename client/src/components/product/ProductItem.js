@@ -18,7 +18,7 @@ const ProductItem = ({ product, cartAdd, ...props }) => {
         <img className="bd-placeholder-img card-img-top" src={product.image} alt="" />
         <div className="card-body">
           <h5 className="card-title">{product.title}</h5>
-          <p className="card-text text-muted"><span className="text-danger fs-4">฿{product.price}</span>/piece</p>
+          <p className="card-text text-muted"><span className="text-danger fs-4">฿{product.price.toLocaleString()}</span>/piece</p>
           <div className="d-flex">
             <div className="input-group">
               <input type="text" className="form-control" placeholder="Quantity" aria-label="Quantity" value={qty} onChange={handleInputChange} />
