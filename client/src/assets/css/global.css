@@ -1,0 +1,15 @@
+body {
+  font-family: 'Kanit', sans-serif;
+  font-size: 18px;
+  line-height: 1.11;
+  line-height: normal;
+  font-weight: normal;
+}
+
+input:focus, select:focus, textarea:focus, button:focus {
+  outline: none;
+}
+
+main>.container {
+  padding-bottom:15px;
+}

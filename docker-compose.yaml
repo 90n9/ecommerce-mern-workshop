@@ -53,11 +53,7 @@ services:
     networks: 
       - ecommerce-app
     volumes:
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-      - mongo-data:/data/db
+      - ./mongo-volume/db:/data/db
 networks: 
   ecommerce-app:
     driver: bridge
-volumes:
-  mongo-data:
-    driver: local

@@ -12,6 +12,7 @@ const routeMiddleware = routerMiddleware(history);
 const sagaMiddleware = createSagaMiddleware();
 
 const middlewares = [sagaMiddleware, routeMiddleware];
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default function configureStore(preloadedState) {
@@ -21,9 +22,10 @@ export default function configureStore(preloadedState) {
 		composeEnhancers(applyMiddleware(...middlewares))
 	);
 	sagaMiddleware.run(rootSaga);
-
+	// @ts-ignore
 	if (module.hot) {
 		// Enable Webpack hot module replacement for reducers
+		// @ts-ignore
 		module.hot.accept("../reducers/index", () => {
 			const nextRootReducer = require("../reducers");
 			store.replaceReducer(nextRootReducer(history));

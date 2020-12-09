@@ -1,0 +1,17 @@
+// Product
+export const PRODUCT_FETCH = "PRODUCT_FETCH";
+export const PRODUCT_FETCH_SUCCESS = "PRODUCT_FETCH_SUCCESS";
+export const PRODUCTS_FETCH = "PRODUCTS_FETCH";
+export const PRODUCTS_FETCH_SUCCESS = "PRODUCTS_FETCH_SUCCESS";
+
+// Cart
+export const CART_ADD = "CART_ADD";
+export const CART_UPDATE = "CART_UPDATE";
+export const CART_DELETE = "CART_DELETE";
+export const CART_RESET = "CART_RESET";
+
+// Order
+export const ORDER_RESET = "ORDER_RESET";
+export const ORDER_CREATE = "ORDER_CREATE";
+export const ORDER_CREATE_SUCCESS = "ORDER_CREATE_SUCCESS";
+export const ORDER_CREATE_ERROR = "ORDER_CREATE_ERROR";
