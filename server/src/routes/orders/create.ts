@@ -45,6 +45,21 @@ router.post('/orders',
   async (req: Request, res: Response) => {
     const { products_price, tax_price, total_price, shipping_name, shipping_mobile, shipping_address } = req.body;
     const productsReq = req.body.products;
+    for (const productReq of productsReq) {
+      let productDb;
+      try {
+        productDb = await Product.findById(productReq.id);
+      } catch (error) {
+        throw new BadRequestError("Error on request product id: " + productReq.id);
+      }
+      if (!productDb) {
+        throw new BadRequestError("Cannot find product id: " + productReq.id);
+      }
+      if (productDb.price !== productReq.price) {
+        throw new BadRequestError(`Product price of ${productReq.id} has been change from ${productReq.price} to ${productDb.price}`);
+      }
+    }
+
     const products: OrderItem[] = productsReq.map((product: { id: string, price: number, qty: number }) => {
       return {
         _id: product.id,
