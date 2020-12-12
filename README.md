@@ -13,8 +13,9 @@
 
 ## Create Seed Data
 
-`POST://localhost:8000/products/seed`
-`data:`
-`{`
-`    "amount": 10`
-`}`
+```
+POST://localhost:8000/products/seed
+data:{
+  "amount": 10
+}
+```
