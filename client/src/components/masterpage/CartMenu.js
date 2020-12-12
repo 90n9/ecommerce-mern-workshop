@@ -7,14 +7,14 @@ const CartMenu = ({ carts, cartDelete }) => {
   const totalQty = carts.map(cart => cart.qty).reduce((a, b) => a + b, 0);
   return (
     <div className="btn-group">
-      <div className="p-2 text-light">
+      <div className="p-2 text-light" id="nav-cart-price">
         ฿ {totalPrice.toLocaleString()}
       </div>
-      <button type="button" className="btn btn-light rounded-circle" data-bs-toggle="dropdown" aria-expanded="false">
+      <button type="button" className="btn btn-light rounded-circle" data-bs-toggle="dropdown" aria-expanded="false" id="btn-cart">
         <div className="text-primary py-1">
           <i className="fas fa-shopping-basket"></i>
         </div>
-        <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger">{totalQty.toLocaleString()}</span>
+        <span className="position-absolute top-100 start-100 translate-middle badge rounded-pill bg-danger" id="nav-cart-qty">{totalQty.toLocaleString()}</span>
       </button>
       <div className="dropdown-menu dropdown-menu-end mt-1 p-4 text-muted">
         <div style={{ minWidth: 240 }}>
@@ -29,7 +29,7 @@ const CartMenu = ({ carts, cartDelete }) => {
           </div>
         </div>
         <div className="d-grid my-2">
-          <Link to="/mycart" className="btn btn-primary">
+          <Link to="/mycart" className="btn btn-primary" id="header-nav-cart">
             My Cart
           </Link>
         </div>

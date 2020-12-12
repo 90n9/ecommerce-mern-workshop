@@ -14,24 +14,20 @@ export default (state = INIT_STATE, action) => {
   switch (action.type) {
     case ORDER_RESET: {
       return {
-        ...state,
-        search: action.payload
+        ...INIT_STATE
       };
     }
     case ORDER_CREATE_SUCCESS: {
       return {
-        ...state,
-        search: {
-          searchText: "",
-          page: 1,
-          perPage: 100,
-        }
+        status: "success",
+        msg: "",
+        order: action.payload
       }
     }
     case ORDER_CREATE_ERROR: {
       return {
-        ...state,
-        countTotal: action.payload,
+        status: "error",
+        msg: action.payload
       }
     }
     default:

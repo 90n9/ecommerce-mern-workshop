@@ -5,9 +5,9 @@ import {
 import {
   orderCreateSuccess,
   orderCreateError,
+  cartReset,
 } from "../actions";
-// import { showErrorMessage } from "../../actions/NotifyActions";
-// import { authorizationHeader, getErrorMessage, getFilterUrl } from "../../util/apiUtil";
+
 import axios from "axios";
 import axiosRetry from 'axios-retry';
 
@@ -21,8 +21,9 @@ const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 // API
 const orderCreateRequest = async payload => {
+  console.log("call create order with post data");
   return await axios
-    .get(`${REACT_APP_API_URL}/order/${payload}`)
+    .post(`${REACT_APP_API_URL}/orders`, payload)
     .then(response => response.data)
     .catch(error => {
       throw error;
@@ -32,12 +33,18 @@ const orderCreateRequest = async payload => {
 // WORKER
 function* orderCreate({ payload }) {
   try {
-    console.log("call order create");
     const data = yield call(orderCreateRequest, payload);
     yield put(orderCreateSuccess(data));
+    yield put(cartReset());
   } catch (error) {
-    console.log(error);
-    // yield put(orderCreateError(error));
+    let errorMsg = error;
+    if(error?.response?.data?.errors && error.response.data.errors.length > 0){
+      errorMsg = (<ul>
+        {error.response.data.errors.map(item => (<div><i class="fas fa-exclamation-triangle"></i> {item.message}</div>))}
+      </ul>)
+      ;
+    }
+    yield put(orderCreateError(errorMsg));
   }
 }
 

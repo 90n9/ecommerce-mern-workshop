@@ -1,12 +1,24 @@
-import express, { Request, Response } from 'express';
-import { Product } from '../../../models/product';
+import mongoose from 'mongoose';
+import request from 'supertest';
+import { app } from '../../../app';
 
-const router = express.Router();
-
-router.get('/api/products', async (req: Request, res: Response) => {
-  const products = await Product.find({});
-
-  res.send(products);
+it('has a route handler listening to /products for get request', async () => {
+  const response = await request(app)
+    .get(`/products`)
+    .send();
+  expect(response.status).not.toEqual(404);
 });
 
-export { router as productIndexRouter };
+it('has a route handler listening to /products for get request', async () => {
+  await request(app)
+    .post(`/products/seed`)
+    .send({
+      amount: 10
+    });
+
+  const response = await request(app)
+    .get(`/products`)
+    .send();
+  expect(response.status).toEqual(200);
+  expect(response.body.length).toEqual(10);
+});

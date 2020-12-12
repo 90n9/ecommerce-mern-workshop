@@ -10,7 +10,6 @@ interface ProductDoc extends mongoose.Document {
   title: string;
   price: number;
   image: string;
-  version: number;
 }
 
 interface ProductModel extends mongoose.Model<ProductDoc> {
@@ -38,8 +37,6 @@ const productSchema = new mongoose.Schema({
     }
   }
 });
-
-// productSchema.set('versionKey', 'version');
 
 productSchema.statics.build = (attrs: ProductAttrs) => {
   return new Product(attrs);

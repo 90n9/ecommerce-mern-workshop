@@ -1,8 +1,15 @@
 import { useState } from 'react';
 import { connect } from "react-redux";
-import { cartUpdate, cartDelete, cartReset } from '../../actions';
+import { Link } from "react-router-dom";
+import { cartUpdate, cartDelete, cartReset, orderReset } from '../../actions';
 
-const MyCart = ({ carts, cartUpdate, cartDelete, cartReset }) => {
+const MyCart = ({ carts, cartUpdate, cartDelete, cartReset, orderReset }) => {
+  const productsPrice = carts.map(cart => cart.product.price * cart.qty).reduce((a, b) => a + b, 0);
+  const taxPrice = productsPrice * 0.07;
+  const totalPrice = productsPrice + taxPrice;
+
+  const numberFormat = (number) => number.toLocaleString('en-US', {style:'currency', currency:'THB', currencyDisplay: 'narrowSymbol'});
+
   return (
     <>
       <h1 className="text-center py-4">
@@ -19,7 +26,23 @@ const MyCart = ({ carts, cartUpdate, cartDelete, cartReset }) => {
           <div class="card border-primary mb-3">
             <div class="card-header bg-transparent border-primary text-primary">Price Summary</div>
             <div class="card-body">
-              <button type="button" className="btn btn-primary">Checkout</button>
+              <div class="d-flex justify-content-between py-1">
+                <strong class="text-gray-dark">Products Price</strong>
+                <span>{numberFormat(productsPrice)}</span>
+              </div>
+              <div class="d-flex justify-content-between py-1">
+                <strong class="text-gray-dark">7% TAX</strong>
+                <span>{numberFormat(taxPrice)}</span>
+              </div>
+              <div class="d-flex justify-content-between py-1">
+                <strong class="text-gray-dark">Total</strong>
+                <span className="text-danger h4">{numberFormat(totalPrice)}</span>
+              </div>
+              <div className="text-end pt-4">
+                <Link to="/order" className="btn btn-primary" onClick={e => orderReset()}>
+                  Checkout
+              </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -69,7 +92,7 @@ const CartItem = ({ cartItem, cartDelete, cartUpdate, ...props }) => {
         <span className="text-danger h5">฿{product.price.toLocaleString()}</span><span className="text-muted">/piece</span>
       </td>
       <td>
-        <input type="text" className="form-control text-end" style={{ width: 80 }} placeholder="Quantity" aria-label="Quantity" value={newQty} onChange={handleInputChange} />
+        <input type="number" className="form-control text-end" style={{ width: 80 }} placeholder="Quantity" aria-label="Quantity" value={newQty} onChange={handleInputChange} />
       </td>
       <td className="text-danger h5 text-end">
         ฿{(product.price * qty).toLocaleString()}
@@ -89,5 +112,5 @@ const mapStateToProps = ({ cart: { carts } }) => {
 
 export default connect(
   mapStateToProps,
-  { cartUpdate, cartDelete, cartReset }
+  { cartUpdate, cartDelete, cartReset, orderReset }
 )(MyCart);

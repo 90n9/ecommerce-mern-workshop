@@ -21,7 +21,7 @@ const ProductItem = ({ product, cartAdd, ...props }) => {
           <p className="card-text text-muted"><span className="text-danger fs-4">฿{product.price.toLocaleString()}</span>/piece</p>
           <div className="d-flex">
             <div className="input-group">
-              <input type="text" className="form-control" placeholder="Quantity" aria-label="Quantity" value={qty} onChange={handleInputChange} />
+              <input type="number" className="form-control" placeholder="Quantity" aria-label="Quantity" value={qty} onChange={handleInputChange} />
               <button className="btn btn-outline-primary" type="button" onClick={handleAddToCart}>
                 Add to Cart
               </button>

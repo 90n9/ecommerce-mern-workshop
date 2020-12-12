@@ -1,24 +1,39 @@
 import mongoose from 'mongoose';
 
 interface OrderAttrs {
-  title: string;
-  price: number;
-  image: string;
+  products_price: number;
+  tax_price: number;
+  total_price: number;
+  shipping_name: string;
+  shipping_mobile: string;
+  shipping_address: string;
+  products:{
+    _id: string,
+    price: number,
+    qty: number
+  }[];
 }
 
 interface OrderDoc extends mongoose.Document {
-  title: string;
-  price: number;
-  image: string;
-  version: number;
+  products_price: number;
+  tax_price: number;
+  total_price: number;
+  shipping_name: string;
+  shipping_mobile: string;
+  shipping_address: string;
+  products:{
+    _id: string,
+    price: number,
+    qty: number
+  }[];
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
   build(attrs: OrderAttrs): OrderDoc;
 }
 
-const orderSchema = new mongoose.Schema({
-  title: {
+const orderProductSchema = new mongoose.Schema({
+  _id: {
     type: String,
     required: true
   },
@@ -26,10 +41,45 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  image: {
+  qty: {
+    type: Number,
+    required: true
+  },
+}, {
+  toJSON: {
+    transform(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+    }
+  }
+});
+
+const orderSchema = new mongoose.Schema({
+  products_price: {
+    type: Number,
+    required: true
+  },
+  tax_price: {
+    type: Number,
+    required: true
+  },
+  total_price: {
+    type: Number,
+    required: true
+  },
+  shipping_name: {
     type: String,
     required: true
   },
+  shipping_mobile: {
+    type: String,
+    required: true
+  },
+  shipping_address: {
+    type: String,
+    required: true
+  },
+  products: [orderProductSchema],
 }, {
   toJSON: {
     transform(doc, ret) {
