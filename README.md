@@ -10,3 +10,11 @@
 ## URL api
 
 `http://localhost:8000`
+
+## Create Seed Data
+
+`POST://localhost:8000/products/seed`
+`data:`
+`{`
+`    "amount": 10`
+`}`
