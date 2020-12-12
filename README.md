@@ -1,3 +1,16 @@
+## RUN Unit test on api
+
+run in folder ./server
+
+```
+#run this command to install dependencies
+> npm install
+
+#run this command to run test
+> npm run test
+```
+
+
 ## Create server on docker compose
 
 `docker-compose up`
